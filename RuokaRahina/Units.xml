@@ -1,0 +1,5 @@
+<root>
+	<unit Name="Porkkana" Health="33" Attack="5.6" Defence="0.6" Delay="6.4" />
+	<unit Name="Paprika" Health="30" Attack="6.0" Defence="1.0" Delay="7.3" />
+</root>
+
