@@ -54,6 +54,7 @@ void Simulator::simulate()
 
     std::cout << "Simuation begins" << std::endl;
 
+    srand(time(nullptr));
     for (;;)
     {
         float simTime = std::min(simUnits[0u].nextActionTimeM, simUnits[1u].nextActionTimeM);
@@ -65,10 +66,12 @@ void Simulator::simulate()
                 UnitInfo &thisUnit = unitsM[i];
                 UnitInfo &otherUnit = unitsM[otherIndex];
 
-                float dmg = thisUnit.getHiilihydraatti() * (1.0f - otherUnit.getProteiini() * 0.01f);
+                bool crit = rand() % 10 == 1;
+                float dmg = thisUnit.getHiilihydraatti() * (1.0f - otherUnit.getProteiini() * 0.01f) * (crit ? 2.0f : 1.0f);
+
                 simUnits[otherIndex].healthRemainingM -= dmg;
 
-                std::cout << simTime << ": " << thisUnit.getName() << " attacked " << otherUnit.getName() << " for " << dmg << " damage - "
+                std::cout << simTime << ": " << thisUnit.getName() << (crit ? " critically" : "") << " hits " << otherUnit.getName() << " for " << dmg << " damage - "
                     << otherUnit.getName() << " has " << simUnits[otherIndex].healthRemainingM << " health remaining" << std::endl;
 
                 if (simUnits[otherIndex].healthRemainingM <= 0.0f)
